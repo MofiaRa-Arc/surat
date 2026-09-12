@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Untukmu ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            background:
+                radial-gradient(circle at 20% 20%, #fff 0%, transparent 25%),
+                radial-gradient(circle at 80% 80%, #ffd1df 0%, transparent 30%),
+                linear-gradient(135deg, #ffd6e5, #fff0f5);
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: min(92%, 620px);
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* =========================
+           SURAT
+        ========================= */
+
+        .letter {
+            position: relative;
+
+            padding: 50px 40px;
+
+            background:
+                linear-gradient(
+                    rgba(255, 255, 255, 0.35),
+                    rgba(255, 255, 255, 0.35)
+                ),
+                #fffdf5;
+
+            border-radius: 7px;
+
+            box-shadow:
+                0 25px 60px rgba(90, 35, 55, 0.18),
+                0 5px 15px rgba(90, 35, 55, 0.08);
+
+            transform: rotate(-1deg);
+
+            transition:
+                transform 0.5s ease,
+                opacity 0.5s ease;
+        }
+
+        .letter:hover {
+            transform: rotate(0deg) translateY(-4px);
+        }
+
+
+        /* Bingkai dalam surat */
+
+        .letter::before {
+            content: "";
+
+            position: absolute;
+
+            top: 14px;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+
+            border: 1px solid rgba(160, 100, 110, 0.25);
+
+            pointer-events: none;
+        }
+
+
+        /* =========================
+           ISI SURAT
+        ========================= */
+
+        h1 {
+            margin: 0 0 25px;
+
+            color: #c53c61;
+
+            font-size: clamp(32px, 7vw, 45px);
+
+            text-align: center;
+        }
+
+        .message {
+            color: #4f3d43;
+
+            font-size: clamp(16px, 3vw, 19px);
+
+            line-height: 1.8;
+
+            text-align: center;
+        }
+
+        .message p {
+            margin: 14px 0;
+        }
+
+        .name {
+            color: #c53c61;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           PERTANYAAN
+        ========================= */
+
+        .question {
+            margin-top: 32px;
+
+            color: #9e294b;
+
+            font-size: clamp(22px, 5vw, 28px);
+
+            font-weight: bold;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           AREA BUTTON
+        ========================= */
+
+        .buttons {
+            position: relative;
+
+            width: 100%;
+            height: 110px;
+
+            margin-top: 20px;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        button {
+            border: none;
+
+            padding: 13px 28px;
+
+            border-radius: 999px;
+
+            font-family: inherit;
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                left 0.18s ease,
+                top 0.18s ease;
+        }
+
+
+        /* YA */
+
+        #yes {
+            position: absolute;
+
+            left: calc(50% - 115px);
+            top: 25px;
+
+            background: #e75480;
+
+            color: white;
+
+            box-shadow:
+                0 7px 18px rgba(231, 84, 128, 0.35);
+        }
+
+        #yes:hover {
+            transform: scale(1.08);
+
+            box-shadow:
+                0 10px 25px rgba(231, 84, 128, 0.45);
+        }
+
+
+        /* TIDAK */
+
+        #no {
+            position: absolute;
+
+            left: calc(50% + 20px);
+            top: 25px;
+
+            background: #eeeeee;
+
+            color: #555;
+
+            box-shadow:
+                0 5px 12px rgba(0, 0, 0, 0.12);
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           HASIL
+        ========================= */
+
+        .success {
+            display: none;
+
+            animation: successAppear 0.8s ease forwards;
+        }
+
+        .success-paper {
+            position: relative;
+
+            padding: 55px 35px;
+
+            background: #fffdf5;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 60px rgba(90, 35, 55, 0.2);
+
+            transform: rotate(-1deg);
+        }
+
+        .success-paper::before {
+            content: "";
+
+            position: absolute;
+
+            top: 14px;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+
+            border: 1px solid rgba(160, 100, 110, 0.25);
+        }
+
+        .success h1 {
+            position: relative;
+
+            margin-bottom: 15px;
+        }
+
+        .success p {
+            position: relative;
+
+            color: #4f3d43;
+
+            font-size: clamp(17px, 4vw, 21px);
+
+            line-height: 1.7;
+        }
+
+        .big-heart {
+            position: relative;
+
+            font-size: 75px;
+
+            animation: heartbeat 1s infinite;
+        }
+
+
+        /* =========================
+           HATI TERBANG
+        ========================= */
+
+        .heart {
+            position: fixed;
+
+            bottom: -40px;
+
+            pointer-events: none;
+
+            z-index: 1;
+
+            animation: floatUp linear forwards;
+        }
+
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes successAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.65) rotate(-6deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(-1deg);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.18);
+            }
+        }
+
+        @keyframes floatUp {
+            from {
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+
+                opacity: 1;
+            }
+
+            to {
+                transform:
+                    translateY(-110vh)
+                    rotate(360deg);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* =========================
+           HP
+        ========================= */
+
+        @media (max-width: 500px) {
+
+            .letter {
+                padding: 40px 24px;
+            }
+
+            .message {
+                line-height: 1.7;
+            }
+
+            .buttons {
+                height: 130px;
+            }
+
+            #yes {
+                left: calc(50% - 115px);
+                top: 35px;
+            }
+
+            #no {
+                left: calc(50% + 15px);
+                top: 35px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+
+
+        <!-- =========================
+             SURAT PERTANYAAN
+        ========================= -->
+
+        <div class="letter" id="letter">
+
+            <h1>Untukmu ❤️</h1>
+
+
+            <div class="message">
+
+                <p>
+                    Ada sesuatu yang sebenarnya
+                    sudah lama ingin aku sampaikan.
+                </p>
+
+                <p>
+                    Aku mungkin tidak pandai
+                    merangkai kata,
+                    tetapi ada seseorang yang
+                    menjadi sangat spesial bagiku.
+                </p>
+
+                <p>
+                    Dan orang itu adalah
+                    <span class="name">kamu.</span>
+                </p>
+
+                <p>
+                    Jadi setelah berpikir cukup lama...
+                </p>
+
+            </div>
+
+
+            <div class="question">
+                Mau jadi pacarku? ❤️
+            </div>
+
+
+            <!--
+                AREA TEMPAT BUTTON BERGERAK
+            -->
+
+            <div class="buttons" id="buttonArea">
+
+                <button id="yes">
+                    Ya ❤️
+                </button>
+
+                <button id="no">
+                    Tidak 😢
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             HASIL SETELAH YA
+        ========================= -->
+
+        <div class="success" id="success">
+
+            <div class="success-paper">
+
+                <div class="big-heart">
+                    ❤️
+                </div>
+
+                <h1>
+                    Selamat!
+                </h1>
+
+                <p>
+                    Kamu sekarang resmi menjadi
+                </p>
+
+                <p>
+                    <strong>
+                        pacarku ❤️
+                    </strong>
+                </p>
+
+                <p>
+                    Terima kasih sudah memilih
+                    <strong>"Ya"</strong>.
+                    <br>
+                    Semoga kita bisa membuat
+                    banyak cerita indah bersama.
+                </p>
+
+                <div style="font-size: 30px;">
+                    💕 💗 💕
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const yesButton =
+            document.getElementById("yes");
+
+        const noButton =
+            document.getElementById("no");
+
+        const buttonArea =
+            document.getElementById("buttonArea");
+
+        const letter =
+            document.getElementById("letter");
+
+        const success =
+            document.getElementById("success");
+
+
+        /* =========================
+           POSISI AWAL TOMBOL TIDAK
+        ========================= */
+
+        let startX = 0;
+        let startY = 0;
+
+        function saveStartPosition() {
+
+            startX = noButton.offsetLeft;
+            startY = noButton.offsetTop;
+
+        }
+
+
+        /*
+         * TOMBOL TIDAK KABUR
+         *
+         * Hanya bergerak sekitar
+         * posisi awal.
+         */
+
+        function runAway() {
+
+            /*
+             * Seberapa jauh tombol boleh
+             * melarikan diri.
+             */
+
+            const rangeX = 100;
+            const rangeY = 35;
+
+
+            /*
+             * Posisi acak di sekitar
+             * posisi awal.
+             */
+
+            let newX =
+                startX +
+                (Math.random() * rangeX * 2 - rangeX);
+
+            let newY =
+                startY +
+                (Math.random() * rangeY * 2 - rangeY);
+
+
+            /*
+             * Batas area tombol.
+             */
+
+            const maxX =
+                buttonArea.clientWidth -
+                noButton.offsetWidth;
+
+            const maxY =
+                buttonArea.clientHeight -
+                noButton.offsetHeight;
+
+
+            /*
+             * Jangan sampai keluar
+             * dari area surat.
+             */
+
+            newX =
+                Math.max(
+                    0,
+                    Math.min(newX, maxX)
+                );
+
+            newY =
+                Math.max(
+                    0,
+                    Math.min(newY, maxY)
+                );
+
+
+            noButton.style.left =
+                newX + "px";
+
+            noButton.style.top =
+                newY + "px";
+
+        }
+
+
+        /* =========================
+           SIMPAN POSISI
+        ========================= */
+
+        window.addEventListener(
+            "load",
+            saveStartPosition
+        );
+
+
+        window.addEventListener(
+            "resize",
+            saveStartPosition
+        );
+
+
+        /* =========================
+           PC
+        ========================= */
+
+        noButton.addEventListener(
+            "mouseenter",
+            runAway
+        );
+
+
+        /* =========================
+           HP
+        ========================= */
+
+        noButton.addEventListener(
+            "touchstart",
+            function(event) {
+
+                event.preventDefault();
+
+                runAway();
+
+            }
+        );
+
+
+        /* =========================
+           TOMBOL YA
+        ========================= */
+
+        yesButton.addEventListener(
+            "click",
+            function() {
+
+                letter.style.display =
+                    "none";
+
+                success.style.display =
+                    "block";
+
+                createHearts();
+
+            }
+        );
+
+
+        /* =========================
+           HUJAN HATI
+        ========================= */
+
+        function createHearts() {
+
+            setInterval(
+                function() {
+
+                    const heart =
+                        document.createElement("div");
+
+                    heart.classList.add(
+                        "heart"
+                    );
+
+
+                    const heartTypes = [
+                        "❤️",
+                        "💕",
+                        "💗",
+                        "💖",
+                        "💘"
+                    ];
+
+
+                    heart.textContent =
+                        heartTypes[
+                            Math.floor(
+                                Math.random() *
+                                heartTypes.length
+                            )
+                        ];
+
+
+                    heart.style.left =
+                        Math.random() * 100 +
+                        "vw";
+
+
+                    heart.style.fontSize =
+                        (15 +
+                        Math.random() * 25) +
+                        "px";
+
+
+                    heart.style.animationDuration =
+                        (4 +
+                        Math.random() * 5) +
+                        "s";
+
+
+                    document.body.appendChild(
+                        heart
+                    );
+
+
+                    setTimeout(
+                        function() {
+
+                            heart.remove();
+
+                        },
+                        9000
+                    );
+
+                },
+                400
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
